@@ -1,17 +1,19 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
+import {SelectNumber} from '../../actions/play_nine_actions';
 
 class Number extends Component {
 
 	render(){
 		let numbers = [];
 		let className;
+		let selectedNumbers = this.props.playNine.selectedNumbers;
 
 		for(let i =1; i < 9; i++){
-			className = "number";
+			className = "number selected-" + (selectedNumbers.indexOf(i) >= 0);
 			
 			numbers.push(
-			<div key={i} className={className}>
+			<div key={i} className={className} onClick={ () => this.props.SelectNumber(i)}>
 				{i}
 			</div>
 			);
@@ -33,5 +35,6 @@ function mapStateToProps(state){
 	}
 }
 
-export default connect(mapStateToProps)(Number);
+
+export default connect(mapStateToProps, {SelectNumber})(Number);
 
