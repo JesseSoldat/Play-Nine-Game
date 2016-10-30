@@ -8,6 +8,9 @@ import ReduxPromise from 'redux-promise';
 import reducer from './reducers';
 import routes from './routes';
 
+import 'bootstrap-social';
+import './bundle.scss';
+
 const createStoreWithMiddleware = applyMiddleware(ReduxPromise)(createStore);
 
 ReactDOM.render(

@@ -59,8 +59,8 @@ class App extends Component {
      		</div>
    		</header>
 
-   		<div> 
-   		{this.props.childern}
+   		<div className="container"> 
+   		{this.props.children}
    		</div>
   	</div>
 		)
