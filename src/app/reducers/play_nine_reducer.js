@@ -1,5 +1,6 @@
 import {
 	SELECT_NUMBER,
+	UNSELECT_NUMBER,
 	REDRAW
 } from '../actions/types';
 
@@ -10,7 +11,8 @@ function randomNumber(){
 const INITIAL_STATE = {
 	stars: randomNumber(),
 	selectedNumbers: [],
-	usedNumbers: []
+	usedNumbers: [],
+	unSelectedNumbers: []
 }
 
 export default function(state = INITIAL_STATE, action){
@@ -33,6 +35,16 @@ export default function(state = INITIAL_STATE, action){
 				...state,
 				selectedNumbers: state.selectedNumbers.concat(selectedNumbers)
 			}
+		case UNSELECT_NUMBER:
+			selectedNumbers = state.selectedNumbers;
+			indexOfNumber = selectedNumbers.indexOf(action.payload);
+			selectedNumbers.splice(indexOfNumber, 1);
+
+			return {
+				...state,
+				selectedNumbers: selectedNumbers,
+				correct: null
+			};
 		case REDRAW:
 			return {
 				...state

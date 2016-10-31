@@ -9,7 +9,7 @@ class Number extends Component {
 		let className;
 		let selectedNumbers = this.props.playNine.selectedNumbers;
 
-		for(let i =1; i < 9; i++){
+		for(let i =1; i <= 9; i++){
 			className = "number selected-" + (selectedNumbers.indexOf(i) >= 0);
 			
 			numbers.push(
