@@ -1,19 +1,41 @@
 import React, {Component} from 'react';
+import {connect} from 'react-redux';
+import {CheckAnswer, AcceptAnswer} from '../../actions/play_nine_actions';
 
 class Button extends Component {
 
 	render(){
 		let button;
-		let correct = null;
+		let disabled;
+		let correct = this.props.playNine.correct;
 
 		switch(correct){
 			case true:
-				return
-			case false:
-				return
-			default:
 				button = (
-				<button className="btn btn-primary btn-lg">=
+				<button className="btn btn-success btn-lg"
+					onClick={this.props.AcceptAnswer}>
+					<span className="glyphicon glyphicon-ok">
+					</span>
+				</button>
+				);
+				break
+
+			case false:
+				button = (
+				<button className="btn btn-danger btn-lg">
+					<span className="glyphicon glyphicon-remove">
+					</span>
+				</button>
+				);
+				break
+
+			default:
+
+			disabled = (this.props.playNine.selectedNumbers.length === 0);
+
+				button = (
+				<button className="btn btn-primary btn-lg" disabled={disabled}
+					onClick={this.props.CheckAnswer}>=
 				</button>
 				)
 		}
@@ -30,4 +52,9 @@ class Button extends Component {
 	}
 }
 
-export default Button;
+function mapStateToProps(state){
+	return {
+		playNine: state.playNine
+	}
+}
+export default connect(mapStateToProps, {CheckAnswer, AcceptAnswer})(Button);

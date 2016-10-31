@@ -8,9 +8,11 @@ class Number extends Component {
 		let numbers = [];
 		let className;
 		let selectedNumbers = this.props.playNine.selectedNumbers;
+		let usedNumbers = this.props.playNine.usedNumbers;
 
 		for(let i =1; i <= 9; i++){
 			className = "number selected-" + (selectedNumbers.indexOf(i) >= 0);
+			className += " used-" + (usedNumbers.indexOf(i) >= 0);
 			
 			numbers.push(
 			<div key={i} className={className} onClick={ () => this.props.SelectNumber(i)}>

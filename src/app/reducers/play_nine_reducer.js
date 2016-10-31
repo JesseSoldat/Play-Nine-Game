@@ -1,6 +1,8 @@
 import {
 	SELECT_NUMBER,
 	UNSELECT_NUMBER,
+	CHECK_ANSWER,
+	ACCEPT_ANSWER,
 	REDRAW
 } from '../actions/types';
 
@@ -12,7 +14,8 @@ const INITIAL_STATE = {
 	stars: randomNumber(),
 	selectedNumbers: [],
 	usedNumbers: [],
-	unSelectedNumbers: []
+	unSelectedNumbers: [],
+	correct: null
 }
 
 export default function(state = INITIAL_STATE, action){
@@ -20,6 +23,7 @@ export default function(state = INITIAL_STATE, action){
 	let indexOfNumber;
 	let indexOfUsed;
 	let selectedNumbers = [];
+	let usedNumbers = [];
 
 	switch(action.type){
 		case SELECT_NUMBER:
@@ -45,6 +49,27 @@ export default function(state = INITIAL_STATE, action){
 				selectedNumbers: selectedNumbers,
 				correct: null
 			};
+
+		case CHECK_ANSWER:
+		 	// console.log('Stars: ', state.stars);
+			let sum = state.selectedNumbers.reduce( (p, n) => p + n);
+			// console.log('Sum: ', sum);
+			let correct = state.stars === sum;
+			return {
+				...state,
+				correct: correct
+			};
+
+		case ACCEPT_ANSWER:
+			usedNumbers = state.usedNumbers.concat(state.selectedNumbers);
+			return {
+				...state,
+				selectedNumbers: [],
+				usedNumbers: usedNumbers,
+				correct: null,
+				stars: randomNumber()
+			};
+
 		case REDRAW:
 			return {
 				...state
