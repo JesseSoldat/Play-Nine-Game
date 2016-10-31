@@ -1,5 +1,5 @@
 import React, {Component} from 'react';
-
+import {connect} from 'react-redux';
 //Components
 import Star from './Star';
 import Button from './Button';
@@ -12,7 +12,7 @@ class Game extends Component {
 	render(){
 
 		let bottomFrame;
-		let doneStatus = false;
+		let doneStatus = this.props.playNine.doneStatus;
 
 		if(doneStatus){
 			bottomFrame = <Done/>
@@ -34,4 +34,9 @@ class Game extends Component {
 	}
 }
 
-export default Game;
+function mapStateToProps(state){
+	return {
+		playNine: state.playNine
+	}
+}
+export default connect(mapStateToProps)(Game);

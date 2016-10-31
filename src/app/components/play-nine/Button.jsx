@@ -1,12 +1,13 @@
 import React, {Component} from 'react';
 import {connect} from 'react-redux';
-import {CheckAnswer, AcceptAnswer} from '../../actions/play_nine_actions';
+import {CheckAnswer, AcceptAnswer, Redraw} from '../../actions/play_nine_actions';
 
 class Button extends Component {
 
 	render(){
 		let button;
 		let disabled;
+		let refreshDisabled = (this.props.playNine.redraws === 0);
 		let correct = this.props.playNine.correct;
 
 		switch(correct){
@@ -43,8 +44,10 @@ class Button extends Component {
 		<div id="button-frame">
 			{button}
 			<br/><br/>
-			<button className="btn btn-warning btn-xs">
+			<button className="btn btn-warning btn-xs" disabled={refreshDisabled}
+				onClick={this.props.Redraw}>
 				<span className="glyphicon glyphicon-refresh">
+				&nbsp; {this.props.playNine.redraws}
 				</span>
 			</button>
 		</div>
@@ -57,4 +60,4 @@ function mapStateToProps(state){
 		playNine: state.playNine
 	}
 }
-export default connect(mapStateToProps, {CheckAnswer, AcceptAnswer})(Button);
+export default connect(mapStateToProps, {CheckAnswer, AcceptAnswer, Redraw})(Button);
